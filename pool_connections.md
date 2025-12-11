@@ -85,8 +85,17 @@ Celery utiliza el parámetro `concurrency` (o `-c`) para definir el tamaño de s
 - **Procesos Hijos / Hilos:** Cada proceso o hilo lanzado por este Pool que ejecuta una tarea y necesita hablar con la base de datos (**una tarea I/O-bound**), consume **una conexión** de la base de datos.
 
 - **Diferenciación Clave:**
-  - Un **Worker** es el proceso supervisor que lanzas con `celery worker`
+  - Un **Worker** es el proceso supervisor que lanzas con el comando `celery -A <app_name> worker`
   - El **Concurrency** (`-c N`) es el número de **ejecutores simultáneos** que ese *Worker* genera internamente
+
+**Ejemplo de comando:**
+```bash
+# Lanza 1 Worker con 10 ejecutores concurrentes
+celery -A myapp worker -c 10
+
+# Lanza 1 Worker con concurrencia por defecto (número de CPUs)
+celery -A myapp worker
+```
 
 > 📐 **Principio Clave:** El número total de ejecutores que pueden tocar la DB es:
 >
